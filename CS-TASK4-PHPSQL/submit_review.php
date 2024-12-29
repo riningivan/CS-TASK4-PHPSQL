@@ -90,7 +90,7 @@
 <body>
     <div class="container">
         <h1>Submit Your Review</h1>
-        <form action="celebration.html" method="GET">
+       <form action="submit_review.php" method="POST">
             <label for="username">Name:</label>
             <input type="text" id="username" name="username" placeholder="John Doe" required>
 
@@ -135,8 +135,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO reviews (username, email, review) VALUES ('$username', '$email', '$review')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Review submitted successfully! <a href='index.html'>Go back</a>";
+        // Redirect to the celebration page after successful submission
+        header("Location: celebration.html");
+        exit;
     } else {
+        // Display error if the query fails
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
